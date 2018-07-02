@@ -44,4 +44,16 @@
 }
 
 
+
+
+-(UILabel *)lableText:(NSString *)strText TextColor:(UIColor *)color fontSize:(CGFloat)size lableBackgroundColor:(UIColor *)bColor textAlignment:(NSTextAlignment )textAlignment lableCGRectMake:(CGRect)rectMake {
+    
+    UILabel * lab = [[UILabel alloc]initWithFrame:rectMake] ;
+    lab.text = strText ;
+    lab.textAlignment = textAlignment ;
+    lab.backgroundColor = bColor ;
+    lab.textColor = color ;
+    lab.font = [UIFont systemFontOfSize:size] ;
+    return lab ;
+}
 @end

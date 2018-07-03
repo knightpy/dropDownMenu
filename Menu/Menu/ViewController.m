@@ -12,7 +12,8 @@
 @interface ViewController ()<DropdownMenuViewDelegate>
 /** strong */
 @property (nonatomic,strong) DropdownMenuView *dropdownMenuView;
-
+/** strong */
+@property (nonatomic,strong) UILabel *lb;
 @end
 
 @implementation ViewController
@@ -21,6 +22,11 @@
     [super viewDidLoad];
     
     [self setupDropdownMenuView];
+    
+    UILabel * lab = [self lableText:@"默认开始..." TextColor:[UIColor blackColor] fontSize:18.f lableBackgroundColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter lableCGRectMake:CGRectMake(10, 500, 300, 30)];
+    [self.view addSubview:lab];
+    
+    self.lb = lab;
 }
 
 
@@ -28,7 +34,7 @@
 - (void)setupDropdownMenuView
 {
     
-    NSArray * arr = [NSArray arrayWithObjects:@"位置",@"岗位",@"结算方式", nil];
+    NSArray * arr = [NSArray arrayWithObjects:@"位置",@"岗位",@"结算方式",@"结算方式", nil];
     DropdownMenuView * menu = [[DropdownMenuView alloc]initWithFrame:CGRectZero parent:self.view title:arr];
     menu.menuDelagete = self; //签署代理
     [menu setLbSelectColor:[UIColor redColor]];
@@ -41,6 +47,8 @@
 {
     NSLog(@"你选择的是 ===== >> %@ >> %ld >> %@",title,item,view);
     //把title传出去, 以进行下一步操作
+    
+    self.lb.text = title;
 }
 
 

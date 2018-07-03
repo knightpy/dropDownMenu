@@ -112,9 +112,9 @@ static NSString * const contentiditer   = @"MenuContentCollectionViewCell";
 {
     if (!_parentScrollview) {
         _parentScrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, DEFAULT_VIEW_HRIGHT) ];
-        _parentScrollview.backgroundColor = [UIColor orangeColor];
+        _parentScrollview.backgroundColor = [UIColor whiteColor];
         _parentScrollview.scrollEnabled = YES;
-        _parentScrollview.showsHorizontalScrollIndicator = YES;
+        _parentScrollview.showsHorizontalScrollIndicator = NO;
         _parentScrollview.showsVerticalScrollIndicator = NO;
         _parentScrollview.translatesAutoresizingMaskIntoConstraints = NO;
         [self.baseView addSubview:_parentScrollview];
@@ -145,6 +145,7 @@ static NSString * const contentiditer   = @"MenuContentCollectionViewCell";
         
         mebuBtn.tag = 100 + i;
         mebuBtn.backgroundColor  =[UIColor whiteColor];
+        mebuBtn.selected = NO;
         [mebuBtn addTarget:self action:@selector(clickEventMenu:) forControlEvents:UIControlEventTouchUpInside];
         [self.parentScrollview addSubview:mebuBtn];
         self.lbTitle = mebuBtn.lb;
@@ -212,8 +213,10 @@ static NSString * const contentiditer   = @"MenuContentCollectionViewCell";
     button.selected = !button.selected;
     _isSelect =  button.selected;
     
+    //通过tag值,以 下标获取数据
+    _arrResults = _arrContentAll[button.tag -100];
+    
     if (_isSelect) {
-        
         //整体View的frame
         self.backgroundColor = DEFAULT_BACKCOLOR;
         [UIView animateWithDuration:0.35 animations:^{
@@ -221,34 +224,35 @@ static NSString * const contentiditer   = @"MenuContentCollectionViewCell";
             rect.size.height = kScreenHeight - kTableView_Height;
             self.frame = rect;
         }];
-        button.lb.textColor = [self lbSelectColor];
-        button.imgLine.image = [UIImage imageNamed:@"line_up.png"];
+        
+        
         //不隐藏
         [self.contentCollectionView setHidden:NO];
-        
-        //通过tag值,以 下标获取数据
-        _arrResults = _arrContentAll[button.tag -100];
         
         //判断数据个数, 设置表格的高度
         [self setupCollevtionViewFrame:button];
         
         //遍历网格视图, 设置其他按钮不可用
         [self setupButtonEnable:button isBool:NO];
+        
     }else{
-        //self.backgroundColor = [UIColor whiteColor];
+    
         [UIView animateWithDuration:0.35 animations:^{
             CGRect rect = self.frame;
             rect.size.height = DEFAULT_VIEW_HRIGHT;
             self.frame = rect;
         }];
+        
         button.lb.textColor = [UIColor blackColor];
         button.imgLine.image = [UIImage imageNamed:@"line_down.png"];
         
-        
         [self.contentCollectionView setHidden:YES];
         //遍历网格视图, 设置其他按钮不可用
-        [self setupButtonEnable:button isBool:YES];
+        //[self setupButtonEnable:button isBool:YES];
+        
     }
+    
+    
     
     _currentBtn = button;
 }
@@ -270,11 +274,22 @@ static NSString * const contentiditer   = @"MenuContentCollectionViewCell";
 #pragma mark - 遍历网格视图, 设置其他按钮不可用
 - (void)setupButtonEnable:(MenuTitleButton*)button isBool:(BOOL)bol{
     //遍历网格视图, 设置其他按钮不可用
+//    for (MenuTitleButton* btn  in self.parentScrollview.subviews) {
+//        if (![btn isEqual:button]) {
+//            [btn setEnabled:bol];
+//        }else{
+//            [btn setEnabled:YES];
+//        }
+//    }
+    
     for (MenuTitleButton* btn  in self.parentScrollview.subviews) {
         if (![btn isEqual:button]) {
-            [btn setEnabled:bol];
+            btn.lb.textColor = [UIColor blackColor];
+            btn.imgLine.image = [UIImage imageNamed:@"line_down.png"];
+            //                btn.selected  = !btn.selected;
         }else{
-            [btn setEnabled:YES];
+            button.lb.textColor = [self lbSelectColor];
+            button.imgLine.image = [UIImage imageNamed:@"line_up.png"];
         }
     }
 }
@@ -304,11 +319,16 @@ static NSString * const contentiditer   = @"MenuContentCollectionViewCell";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    _currentBtn.selected = !_currentBtn.selected;
+//    _currentBtn.selected = !_currentBtn.selected;
     
+    for (MenuTitleButton* btn  in self.parentScrollview.subviews) {
+        btn.selected = !btn.selected;
+    }
     if (self.menuDelagete && [self.menuDelagete respondsToSelector:@selector(selectTitle:currentItem:view:)]) {
         [self.menuDelagete selectTitle:_arrResults[indexPath.item] currentItem:indexPath.item view:self];
     }
+    
+    _currentBtn.lb.text = _arrResults[indexPath.item];
     
 //    self.backgroundColor = [UIColor whiteColor];
     [UIView animateWithDuration:0.35 animations:^{
@@ -320,7 +340,7 @@ static NSString * const contentiditer   = @"MenuContentCollectionViewCell";
     _currentBtn.imgLine.image = [UIImage imageNamed:@"line_down.png"];
     [self.contentCollectionView setHidden:YES];
     
-    [self setupButtonEnable:_currentBtn isBool:YES];
+//    [self setupButtonEnable:_currentBtn isBool:YES];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{

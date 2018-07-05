@@ -9,38 +9,34 @@
 #import "ViewController.h"
 #import "DropdownMenuView.h"
 
+// 屏幕宽高
+#define kScreenWidth        [[UIScreen mainScreen] bounds].size.width
+#define kScreenHeight       [[UIScreen mainScreen] bounds].size.height
+
 @interface ViewController ()<DropdownMenuViewDelegate>
 /** strong */
-@property (nonatomic,strong) DropdownMenuView *dropdownMenuView;
-/** strong */
-@property (nonatomic,strong) UILabel *lb;
+@property (nonatomic,weak) UILabel *lb;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setupDropdownMenuView];
-    
-    UILabel * lab = [self lableText:@"默认开始..." TextColor:[UIColor blackColor] fontSize:18.f lableBackgroundColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter lableCGRectMake:CGRectMake(10, 500, 300, 30)];
-    [self.view addSubview:lab];
-    
-    self.lb = lab;
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    //基本操作
+    [self Control];
 }
-
-
-#pragma mark - 下拉菜单
-- (void)setupDropdownMenuView
+-(void)Control
 {
-    
-    NSArray * arr = [NSArray arrayWithObjects:@"位置",@"岗位",@"结算方式",@"结算方式", nil];
-    DropdownMenuView * menu = [[DropdownMenuView alloc]initWithFrame:CGRectZero parent:self.view title:arr];
+    NSArray * arr = [NSArray arrayWithObjects:@"位置",@"岗位",@"结算方式",@"企业性质", nil];
+    DropdownMenuView * menu = [[DropdownMenuView alloc]initWithFrame:CGRectMake(0, 100, kScreenWidth, 60) parent:self.view title:arr];
     menu.menuDelagete = self; //签署代理
     [menu setLbSelectColor:[UIColor redColor]];
-    self.dropdownMenuView = menu;
+    
+    UILabel * lb = [self lableText:@"test" TextColor:[UIColor blueColor] fontSize:18 lableBackgroundColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter lableCGRectMake:CGRectMake(30, 550, 300, 30)];
+    [self.view addSubview:lb];
+    self.lb = lb;
 }
-
 
 #pragma mark  - 下拉菜单的协议
 - (void)selectTitle:(NSString *)title currentItem:(NSInteger)item view:(DropdownMenuView *)view
@@ -48,10 +44,9 @@
     NSLog(@"你选择的是 ===== >> %@ >> %ld >> %@",title,item,view);
     //把title传出去, 以进行下一步操作
     
+    
     self.lb.text = title;
 }
-
-
 
 
 -(UILabel *)lableText:(NSString *)strText TextColor:(UIColor *)color fontSize:(CGFloat)size lableBackgroundColor:(UIColor *)bColor textAlignment:(NSTextAlignment )textAlignment lableCGRectMake:(CGRect)rectMake {

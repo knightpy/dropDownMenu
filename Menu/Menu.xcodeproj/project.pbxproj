@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE40785D20F73497009A57A5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE40785C20F73497009A57A5 /* SecondViewController.m */; };
 		DE5F2F4620EA065500C7263C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5F2F4520EA065500C7263C /* AppDelegate.m */; };
 		DE5F2F4920EA065500C7263C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5F2F4820EA065500C7263C /* ViewController.m */; };
 		DE5F2F4C20EA065500C7263C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5F2F4A20EA065500C7263C /* Main.storyboard */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE40785B20F73497009A57A5 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		DE40785C20F73497009A57A5 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		DE5F2F4120EA065500C7263C /* Menu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Menu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE5F2F4420EA065500C7263C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DE5F2F4520EA065500C7263C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -84,6 +87,8 @@
 				DE5F2F4520EA065500C7263C /* AppDelegate.m */,
 				DE5F2F4720EA065500C7263C /* ViewController.h */,
 				DE5F2F4820EA065500C7263C /* ViewController.m */,
+				DE40785B20F73497009A57A5 /* SecondViewController.h */,
+				DE40785C20F73497009A57A5 /* SecondViewController.m */,
 				DE5F2F4A20EA065500C7263C /* Main.storyboard */,
 				DE5F2F4D20EA065500C7263C /* Assets.xcassets */,
 				DE5F2F4F20EA065500C7263C /* LaunchScreen.storyboard */,
@@ -198,6 +203,7 @@
 				DE5F2F6C20EA06DC00C7263C /* MenuContentCollectionViewCell.m in Sources */,
 				DE5F2F4920EA065500C7263C /* ViewController.m in Sources */,
 				DE5F2F5420EA065500C7263C /* main.m in Sources */,
+				DE40785D20F73497009A57A5 /* SecondViewController.m in Sources */,
 				DE5F2F6E20EA06DC00C7263C /* MenuTitleButton.m in Sources */,
 				DE5F2F6820EA06DC00C7263C /* UIView+Extensions.m in Sources */,
 				DE5F2F4620EA065500C7263C /* AppDelegate.m in Sources */,
